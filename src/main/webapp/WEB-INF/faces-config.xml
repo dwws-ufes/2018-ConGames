@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<application>
+	<!-- Defines the resource bundle that contains the standard JSF messages (overriding the ones provided). -->
+	<message-bundle>br.ufes.informatica.congames.faces</message-bundle>
+
+	<!-- Loads resource bundles for i18n messages and assigns names to them. -->
+	<resource-bundle>
+		<base-name>br.ufes.informatica.congames.messages</base-name>
+		<var>msgs</var>
+	</resource-bundle>
+	
+	<resource-bundle>
+		<base-name>br.ufes.informatica.oldenburg.core.view.messages</base-name>
+		<var>msgsCore</var>
+	</resource-bundle>
+
+	<!-- Defines the default locale. -->
+	<locale-config>
+		<default-locale>en-US</default-locale>
+	</locale-config>
+</application>
