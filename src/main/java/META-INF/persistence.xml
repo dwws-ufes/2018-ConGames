@@ -10,8 +10,8 @@
 		<class>br.ufes.informatica.congames.core.domain.Game</class>
 		<class>br.ufes.informatica.congames.core.domain.Genre</class>
 		<class>br.ufes.informatica.congames.core.domain.User</class>
-		<class>br.ufes.informatica.congames.core.domain.Permission</class>
 		<class>br.ufes.informatica.congames.core.domain.Role</class>
+		<class>br.ufes.informatica.congames.core.domain.UserRole</class>
 		<properties>
 			<property name="hibernate.hbm2ddl.auto" value="update" />
 		</properties>

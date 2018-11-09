@@ -1,6 +1,7 @@
 package br.ufes.informatica.congames.core.domain;
 
 import javax.persistence.Entity;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.validation.constraints.Email;
@@ -27,6 +28,9 @@ public class User extends PersistentObjectSupport {
 
 	@PositiveOrZero
 	private double funds;
+	
+	@OneToOne(mappedBy = "user")
+	private UserRole userRole;
 
 	public String getUsername() {
 		return username;
@@ -60,6 +64,14 @@ public class User extends PersistentObjectSupport {
 
 	public void setFunds(double _funds) {
 		funds = _funds;
+	}
+
+	public UserRole getUserRole() {
+		return userRole;
+	}
+
+	public void setUserRole(UserRole userRole) {
+		this.userRole = userRole;
 	}
 
 }

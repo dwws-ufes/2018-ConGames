@@ -7,7 +7,7 @@ import javax.validation.constraints.Size;
 import br.ufes.inf.nemo.jbutler.ejb.persistence.PersistentObjectSupport;
 
 @Entity
-public class Role extends PersistentObjectSupport implements Comparable<Role> {
+public class Role extends PersistentObjectSupport {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -21,14 +21,6 @@ public class Role extends PersistentObjectSupport implements Comparable<Role> {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	@Override
-	public int compareTo(Role o) {
-		if (name.equals(o.name))
-			return 0;
-		else
-			return 1;
 	}
 
 }
