@@ -44,4 +44,45 @@
 	<session-config>
 		<session-timeout>30</session-timeout>
 	</session-config>
+	
+	<servlet-mapping>
+		<servlet-name>Faces Servlet</servlet-name>
+		<url-pattern>*.xhtml</url-pattern>
+	</servlet-mapping>
+	
+	<!-- LOGIN STUFF -->
+	
+	<login-config>
+        <auth-method>FORM</auth-method>
+        <realm-name>Security</realm-name>
+        <form-login-config>
+            <form-login-page>/login.xhtml</form-login-page>
+            <form-error-page>/login.xhtml</form-error-page>
+        </form-login-config>
+    </login-config>
+    
+    <security-constraint>
+  		<web-resource-collection>
+    		<web-resource-name>Publisher pages</web-resource-name>
+    		<url-pattern>/core/private/*</url-pattern>
+  		</web-resource-collection>
+  		<auth-constraint>
+     		<role-name>PERM_PUBLISHER</role-name>
+  		</auth-constraint>
+	</security-constraint>
+    
+	<security-constraint>
+	  <web-resource-collection>
+	    <web-resource-name>Public</web-resource-name>
+	    <url-pattern>/index.xhtml</url-pattern>
+	  </web-resource-collection>
+	  <!-- No auth-constraint means everybody has access! -->
+	</security-constraint>
+	
+	<security-role>
+	  <role-name>PERM_PUBLISHER</role-name>
+	</security-role>
+	<security-role>
+	  <role-name>PERM_USER</role-name>
+	</security-role>
 </web-app>

@@ -6,19 +6,19 @@ import javax.ejb.Stateless;
 
 import br.ufes.inf.nemo.jbutler.ejb.application.CrudServiceBean;
 import br.ufes.inf.nemo.jbutler.ejb.persistence.BaseDAO;
-import br.ufes.informatica.congames.core.domain.Workshop;
-import br.ufes.informatica.congames.core.persistence.WorkshopDAO;
+import br.ufes.informatica.congames.core.domain.Game;
+import br.ufes.informatica.congames.core.persistence.GameDAO;
 
 @Stateless
 @PermitAll
-public class ManageWorkshopsServiceBean extends CrudServiceBean<Workshop> implements ManageWorkshopsService {
+public class ManageGamesServiceBean extends CrudServiceBean<Game> implements ManageGamesService {
 	private static final long serialVersionUID = 1L;
 
 	@EJB
-	private WorkshopDAO workshopDAO;
+	private GameDAO gameDAO;
 
 	@Override
-	public BaseDAO<Workshop> getDAO() {
-		return workshopDAO;
+	public BaseDAO<Game> getDAO() {
+		return gameDAO;
 	}
 }

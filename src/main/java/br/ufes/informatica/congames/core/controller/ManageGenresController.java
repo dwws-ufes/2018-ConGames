@@ -6,19 +6,19 @@ import javax.inject.Named;
 
 import br.ufes.inf.nemo.jbutler.ejb.application.CrudService;
 import br.ufes.inf.nemo.jbutler.ejb.controller.CrudController;
-import br.ufes.informatica.congames.core.application.ManageWorkshopsService;
-import br.ufes.informatica.congames.core.domain.Workshop;
+import br.ufes.informatica.congames.core.application.ManageGenresService;
+import br.ufes.informatica.congames.core.domain.Genre;
 
 @Named @SessionScoped
-public class ManageWorkshopsController extends CrudController<Workshop> {
+public class ManageGenresController extends CrudController<Genre> {
 	private static final long serialVersionUID = 1L;
 
 	@EJB
-	private ManageWorkshopsService manageWorkshopsService;
+	private ManageGenresService manageGenresService;
 	
 	@Override
-	protected CrudService<Workshop> getCrudService() {
-		return manageWorkshopsService;
+	protected CrudService<Genre> getCrudService() {
+		return manageGenresService;
 	}
 
 	@Override

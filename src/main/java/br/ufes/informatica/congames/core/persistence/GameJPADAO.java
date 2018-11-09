@@ -5,10 +5,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import br.ufes.inf.nemo.jbutler.ejb.persistence.BaseJPADAO;
-import br.ufes.informatica.congames.core.domain.Workshop;
+import br.ufes.informatica.congames.core.domain.Game;
 
 @Stateless
-public class WorkshopJPADAO extends BaseJPADAO<Workshop> implements WorkshopDAO {
+public class GameJPADAO extends BaseJPADAO<Game> implements GameDAO {
 		private static final long serialVersionUID = 1L;
 		
 		@PersistenceContext
