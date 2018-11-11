@@ -24,7 +24,7 @@
 				</p:link></li>
 
 			<li class="header"><h:outputText
-					value="#{msgsCore['core.menu.admin']}"/></li>
+					value="#{msgsCore['core.menu.admin']}" /></li>
 			<li><p:link outcome="/core/manageGames/index"
 					onclick="clearBreadCrumbs()">
 					<i class="fa fa-gamepad"></i>
@@ -40,23 +40,41 @@
 
 			<li class="header"><h:outputText
 					value="#{msgsCore['core.menu.myzone']}" /></li>
-			<li><p:link outcome="/sign-in.xhtml" onclick="clearBreadCrumbs()"
+			<li><p:link outcome="/sign-in.xhtml"
+					onclick="clearBreadCrumbs()"
+					rendered="#{sessionController.isLoggedIn}">
+					<i class="fa fa-user"></i>
+					<span><h:outputText
+							value="#{sessionController.currentUser.username}" /></span>
+				</p:link></li>
+			<li><p:link outcome="/core/manageFunds/index"
+					onclick="clearBreadCrumbs()"
+					rendered="#{sessionController.isLoggedIn}">
+					<i class="fa fa-credit-card"></i>
+					<span><h:outputText
+							value="#{msgsCore['core.menu.myzone.manageFunds']}" /></span>
+				</p:link></li>
+			<li><p:link outcome="/sign-in.xhtml"
+					onclick="clearBreadCrumbs()"
 					rendered="#{not sessionController.isLoggedIn}">
 					<i class="fa fa-sign-in"></i>
 					<span><h:outputText
 							value="#{msgsCore['core.menu.myzone.login']}" /></span>
 				</p:link></li>
-				<li><p:link outcome="/sign-up.xhtml" onclick="clearBreadCrumbs()"
+			<li><p:link outcome="/sign-up.xhtml"
+					onclick="clearBreadCrumbs()"
 					rendered="#{not sessionController.isLoggedIn}">
 					<i class="fa fa-user-plus"></i>
 					<span><h:outputText
 							value="#{msgsCore['core.menu.myzone.register']}" /></span>
 				</p:link></li>
-			<li><h:form>
-					<h:commandLink action="#{sessionController.logout}"
-						rendered="#{sessionController.isLoggedIn}"
-						value="#{msgsCore['core.menu.myzone.logout']}" />
-				</h:form></li>
+			<li><p:link outcome="/sign-out.xhtml"
+					onclick="clearBreadCrumbs()"
+					rendered="#{sessionController.isLoggedIn}">
+					<i class="fa fa-sign-out"></i>
+					<span><h:outputText
+							value="#{msgsCore['core.menu.myzone.logout']}" /></span>
+				</p:link></li>
 		</ul>
 	</ui:define>
 

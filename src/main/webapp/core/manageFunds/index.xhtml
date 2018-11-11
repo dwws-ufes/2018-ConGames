@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:adm="http://github.com/adminfaces"
+	template="/WEB-INF/templates/template.xhtml">
+
+	<f:metadata>
+	    <f:event type="preRenderView" listener="#{sessionController.checkUserLoggedIn}" />
+	</f:metadata>
+	
+	<ui:define name="title">
+		<h:outputText value="#{msgsCore['manageFunds.title']}" />
+	</ui:define>
+	
+	<ui:define name="description">
+		<h:outputText value="#{msgsCore['manageFunds.title.description']}" />
+	</ui:define>
+	
+	<ui:define name="body">
+		<adm:breadcrumb link="/core/manageFunds/index" title="#{msgsCore['manageFunds.title']}" />
+		<h:form id="listingForm">
+			<p>
+				<h:outputText value="#{manageFundsController.userFunds}" />
+			</p>
+			<p>
+				<h:outputText value="#{msgsCore['manageFunds.addFunds']}" /> <p:inputNumber step="0.01" id="inptAddId" decimalPlaces="0" value="#{manageFundsController.fundsInput}"/>
+			</p>
+			<p:commandButton action="#{manageFundsController.addUserFunds}" update="@form" icon="fa fa-plus" value="#{msgsCore['manageFunds.addButton']}" />
+			<p:commandButton action="#{manageFundsController.withdrawUserFunds}" update="@form" icon="fa fa-minus" value="#{msgsCore['manageFunds.withdrawButton']}" />
+		</h:form>
+	</ui:define>
+	
+</ui:composition>

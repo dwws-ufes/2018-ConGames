@@ -61,7 +61,28 @@ public class SessionController extends JSFController implements Serializable {
 			getExternalContext().redirect(getExternalContext().getRequestContextPath() + "/sign-in.xhtml");
 
 		}
-
+	}
+	
+	public void checkPublisherRole() throws IOException {
+		if(currentUser == null || currentUser.getUserRole().getId() != 1) {
+			getExternalContext().getFlash().setKeepMessages(true);
+			getFacesContext().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "You don't have permission for this resource.", ""));
+			getExternalContext().redirect(getExternalContext().getRequestContextPath() + "/index.xhtml");
+		}
+	}
+	
+	public void checkClientRole() throws IOException {
+		if(currentUser == null || currentUser.getUserRole().getId() != 2) {
+			getExternalContext().getFlash().setKeepMessages(true);
+			getFacesContext().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "You don't have permission for this resource.", ""));
+			getExternalContext().redirect(getExternalContext().getRequestContextPath() + "/index.xhtml");
+		}
+	}
+	
+	public void checkUserLoggedIn() throws IOException {
+		if(currentUser == null) {
+			getExternalContext().redirect(getExternalContext().getRequestContextPath() + "/sign-in.xhtml");
+		}
 	}
 
 	public void logout() throws IOException {

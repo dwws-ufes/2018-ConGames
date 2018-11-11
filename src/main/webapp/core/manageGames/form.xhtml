@@ -6,6 +6,10 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:adm="http://github.com/adminfaces"
 	template="/WEB-INF/templates/template.xhtml">
+	
+	<f:metadata>
+	    <f:event type="preRenderView" listener="#{sessionController.checkPublisherRole}" />
+	</f:metadata>
 
 	<ui:define name="title">
 		<h:outputText value="#{msgsCore['manageGames.title.create']}"
