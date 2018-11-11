@@ -36,8 +36,8 @@ public class User extends PersistentObjectSupport {
 		return username;
 	}
 
-	public void setUsername(String _username) {
-		username = _username;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 
@@ -45,8 +45,8 @@ public class User extends PersistentObjectSupport {
 		return password;
 	}
 
-	public void setPassword(String _password) {
-		password = _password;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 
@@ -54,16 +54,16 @@ public class User extends PersistentObjectSupport {
 		return email;
 	}
 
-	public void setEmail(String _email) {
-		email = _email;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public double getFunds() {
 		return funds;
 	}
 
-	public void setFunds(double _funds) {
-		funds = _funds;
+	public void setFunds(double funds) {
+		this.funds = funds;
 	}
 
 	public UserRole getUserRole() {

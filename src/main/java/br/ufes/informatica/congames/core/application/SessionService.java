@@ -7,6 +7,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
 import br.ufes.informatica.congames.core.domain.User;
+import br.ufes.informatica.congames.core.exception.InvalidLoginException;
 
 @Stateless
 @PermitAll
@@ -15,16 +16,14 @@ public class SessionService implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@EJB
-	private UserService userSerivce;
+	private ManageUsersService userService;
+
 	
-	@EJB
-	private ManageUserRolesService manageUserRolesService;
+	public User login(String username, String password) throws InvalidLoginException {
 		
-	public User login(String username, String password) throws Exception {
+		User user = userService.find(username, password);
 		
-		User user = userSerivce.find(username, password);
-		
-		if(user == null) throw new Exception();
+		if(user == null) throw new InvalidLoginException();
 		
 		return user;
 	}

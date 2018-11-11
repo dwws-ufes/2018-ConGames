@@ -7,7 +7,7 @@ import br.ufes.inf.nemo.jbutler.ejb.application.CrudService;
 import br.ufes.informatica.congames.core.domain.User;
 
 @Local
-public interface UserService extends CrudService<User> {
+public interface ManageUsersService extends CrudService<User> {
 	
 	/**
 	 * Find a User given it's username and password.

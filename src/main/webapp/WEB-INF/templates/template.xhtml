@@ -5,12 +5,11 @@
 	xmlns:p="http://primefaces.org/ui" template="/admin.xhtml">
 
 	<ui:define name="head">
-		<title>ConGames Publisher</title>
+		<title>ConGames</title>
 	</ui:define>
 
 	<ui:define name="logo-lg">
         ConGames
-        <h:outputText value="#{sessionController.currentUser.userRole.name}" />
 	</ui:define>
 
 	<ui:define name="logo-mini">
@@ -27,31 +26,35 @@
 			<li class="header"><h:outputText
 					value="#{msgsCore['core.menu.admin']}"/></li>
 			<li><p:link outcome="/core/manageGames/index"
-					onclick="clearBreadCrumbs()"
-					rendered="#{sessionController.currentUser.userRole.name eq 'Publisher'}">
-					<i class="fa fa-calendar"></i>
+					onclick="clearBreadCrumbs()">
+					<i class="fa fa-gamepad"></i>
 					<span><h:outputText
 							value="#{msgsCore['core.menu.admin.manageGames']}" /></span>
 				</p:link></li>
 			<li><p:link outcome="/core/manageGenres/index"
-					onclick="clearBreadCrumbs()"
-					rendered="#{sessionController.currentUser.userRole.name eq 'Client'}">
-					<i class="fa fa-calendar"></i>
+					onclick="clearBreadCrumbs()">
+					<i class="fa fa-genderless"></i>
 					<span><h:outputText
 							value="#{msgsCore['core.menu.admin.manageGenres']}" /></span>
 				</p:link></li>
 
 			<li class="header"><h:outputText
 					value="#{msgsCore['core.menu.myzone']}" /></li>
-			<li><p:link outcome="/blah.xhtml" onclick="clearBreadCrumbs()"
+			<li><p:link outcome="/sign-in.xhtml" onclick="clearBreadCrumbs()"
 					rendered="#{not sessionController.isLoggedIn}">
-					<i class="fa fa-calendar"></i>
+					<i class="fa fa-sign-in"></i>
 					<span><h:outputText
 							value="#{msgsCore['core.menu.myzone.login']}" /></span>
 				</p:link></li>
+				<li><p:link outcome="/sign-up.xhtml" onclick="clearBreadCrumbs()"
+					rendered="#{not sessionController.isLoggedIn}">
+					<i class="fa fa-user-plus"></i>
+					<span><h:outputText
+							value="#{msgsCore['core.menu.myzone.register']}" /></span>
+				</p:link></li>
 			<li><h:form>
 					<h:commandLink action="#{sessionController.logout}"
-						rendered="#{sessionController.isLoggedIn}}"
+						rendered="#{sessionController.isLoggedIn}"
 						value="#{msgsCore['core.menu.myzone.logout']}" />
 				</h:form></li>
 		</ul>

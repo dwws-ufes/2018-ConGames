@@ -12,7 +12,7 @@ import br.ufes.informatica.congames.core.persistence.UserDAO;
 
 @Stateless
 @PermitAll
-public class UserServiceBean extends CrudServiceBean<User> implements UserService {
+public class ManageUsersServiceBean extends CrudServiceBean<User> implements ManageUsersService {
 	private static final long serialVersionUID = 1L;
 
 	@EJB
