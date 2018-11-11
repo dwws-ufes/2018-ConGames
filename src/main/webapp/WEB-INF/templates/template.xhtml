@@ -10,7 +10,8 @@
 
 	<ui:define name="logo-lg">
         ConGames
-    </ui:define>
+        <h:outputText value="#{sessionController.currentUser.userRole.name}" />
+	</ui:define>
 
 	<ui:define name="logo-mini">
         CG
@@ -22,25 +23,37 @@
 					<i class="fa fa-home"></i>
 					<span><h:outputText value="#{msgs['menu.home']}" /></span>
 				</p:link></li>
-			<li class="header">Header</li>
-			<li><p:link outcome="/index" onclick="clearBreadCrumbs()">
-					<i class="fa fa-calendar"></i>
-					<span>Blank Link</span>
-				</p:link></li>
+
 			<li class="header"><h:outputText
-					value="#{msgsCore['core.menu.admin']}" /></li>
+					value="#{msgsCore['core.menu.admin']}"/></li>
 			<li><p:link outcome="/core/manageGames/index"
-					onclick="clearBreadCrumbs()">
+					onclick="clearBreadCrumbs()"
+					rendered="#{sessionController.currentUser.userRole.name eq 'Publisher'}">
 					<i class="fa fa-calendar"></i>
 					<span><h:outputText
 							value="#{msgsCore['core.menu.admin.manageGames']}" /></span>
 				</p:link></li>
 			<li><p:link outcome="/core/manageGenres/index"
-					onclick="clearBreadCrumbs()">
+					onclick="clearBreadCrumbs()"
+					rendered="#{sessionController.currentUser.userRole.name eq 'Client'}">
 					<i class="fa fa-calendar"></i>
 					<span><h:outputText
 							value="#{msgsCore['core.menu.admin.manageGenres']}" /></span>
 				</p:link></li>
+
+			<li class="header"><h:outputText
+					value="#{msgsCore['core.menu.myzone']}" /></li>
+			<li><p:link outcome="/blah.xhtml" onclick="clearBreadCrumbs()"
+					rendered="#{not sessionController.isLoggedIn}">
+					<i class="fa fa-calendar"></i>
+					<span><h:outputText
+							value="#{msgsCore['core.menu.myzone.login']}" /></span>
+				</p:link></li>
+			<li><h:form>
+					<h:commandLink action="#{sessionController.logout}"
+						rendered="#{sessionController.isLoggedIn}}"
+						value="#{msgsCore['core.menu.myzone.logout']}" />
+				</h:form></li>
 		</ul>
 	</ui:define>
 
@@ -54,7 +67,8 @@
 		<h:outputText value=" #{msgs['text.and']} " />
 		<a href="https://github.com/Erethan">Eric Marchetti</a>
 		<h:outputText value=" #{msgs['text.for']} " />
-		<a href="https://www.inf.ufes.br/~vitorsouza/teaching/dwws-20182/">Desenvolvimento Web e Web Semântica – 2018/2</a>
+		<a href="https://www.inf.ufes.br/~vitorsouza/teaching/dwws-20182/">Desenvolvimento
+			Web e Web Semântica – 2018/2</a>
 		<div class="pull-right hidden-xs" style="color: gray">
 			<i>1.0.0</i>
 		</div>

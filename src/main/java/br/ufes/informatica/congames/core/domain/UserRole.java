@@ -2,6 +2,9 @@ package br.ufes.informatica.congames.core.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 import br.ufes.inf.nemo.jbutler.ejb.persistence.PersistentObjectSupport;
 
 @Entity
@@ -9,27 +12,16 @@ public class UserRole extends PersistentObjectSupport {
 
 	private static final long serialVersionUID = 1L;
 	
-	@OneToOne
-	private User user;
-	
-	@OneToOne
-	private Role role;
-	
+	@NotNull
+	@Size(max = 100)
+	private String name;
 
-	public Role getRole() {
-		return role;
+	public String getName() {
+		return name;
 	}
 
-	public void setRole(Role role) {
-		this.role = role;
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 }
