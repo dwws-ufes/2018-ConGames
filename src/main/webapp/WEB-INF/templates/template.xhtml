@@ -40,12 +40,12 @@
 
 			<li class="header"><h:outputText
 					value="#{msgsCore['core.menu.myzone']}" /></li>
-			<li><p:link outcome="/sign-in.xhtml"
+			<li><p:link outcome="/core/myProfile/index"
 					onclick="clearBreadCrumbs()"
 					rendered="#{sessionController.isLoggedIn}">
 					<i class="fa fa-user"></i>
 					<span><h:outputText
-							value="#{sessionController.currentUser.username}" /></span>
+							value="#{msgsCore['core.menu.myzone.profile']}" /></span>
 				</p:link></li>
 			<li><p:link outcome="/core/manageFunds/index"
 					onclick="clearBreadCrumbs()"

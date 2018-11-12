@@ -37,6 +37,7 @@ public class InitialSeedService implements ServletContextListener {
 			User userPublisher = new User();
 			userPublisher.setEmail("publisher@congames.com");
 			userPublisher.setFunds(0);
+			userPublisher.setName("Publisher guy");
 			userPublisher.setUsername("publisher");
 			userPublisher.setPassword("publisher");
 			userPublisher.setUserRole(publisherRole);
@@ -45,6 +46,7 @@ public class InitialSeedService implements ServletContextListener {
 			User userClient = new User();
 			userClient.setEmail("client@gmail.com");
 			userClient.setFunds(0);
+			userClient.setName("Client guy");
 			userClient.setUsername("client");
 			userClient.setPassword("client");
 			userClient.setUserRole(clientRole);

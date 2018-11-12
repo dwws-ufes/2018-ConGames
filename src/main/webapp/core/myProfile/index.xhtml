@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:adm="http://github.com/adminfaces"
+	template="/WEB-INF/templates/template.xhtml">
+
+	<f:metadata>
+	    <f:event type="preRenderView" listener="#{sessionController.checkUserLoggedIn}" />
+	</f:metadata>
+	
+	<ui:define name="title">
+		<h:outputText value="#{msgsCore['myProfile.title']}" />
+	</ui:define>
+	
+	<ui:define name="description">
+		<h:outputText value="#{msgsCore['myProfile.title.description']}" />
+	</ui:define>
+	
+	<ui:define name="body">
+		<adm:breadcrumb link="/core/myProfile/index" title="#{msgsCore['myProfile.title']}" />
+		<h:form id="updateProfileForm">
+			<p:messages id="messages" showDetail="true" closable="true">
+		        <p:autoUpdate />
+		    </p:messages>
+		 
+			<p:panelGrid columns="2" columnClasses="ui-grid-col-4,ui-grid-col-8" layout="grid" styleClass="ui-panelgrid-blank">
+				<p:outputLabel for="usernameField" value="#{msgsCore['myProfile.field.username']} " />
+				<p:inputText id="usernameField" value="#{myProfileController.username}" style="width: 50%;" />
+				
+				<p:outputLabel for="emailField" value="#{msgsCore['myProfile.field.email']} " />
+				<p:inputText id="emailField" value="#{myProfileController.email}" style="width: 50%;" />
+				
+				<p:outputLabel for="nameField" value="#{msgsCore['myProfile.field.name']} " />
+				<p:inputText id="nameField" value="#{myProfileController.name}" style="width: 50%;" />
+				
+				<p:outputLabel for="websiteField" value="#{msgsCore['myProfile.field.website']} " />
+				<p:inputText id="websiteField" value="#{myProfileController.website}" style="width: 50%;" />
+		
+				
+				<p:outputLabel for="passwordField" value="#{msgsCore['myProfile.field.password']} " />
+				<p:password id="passwordField" value="#{myProfileController.password}" feedback="true" style="width: 50%;" />				
+			</p:panelGrid>
+		
+			<br/>
+			
+			<p:commandButton action="#{myProfileController.updateUserProfile}"
+				update="@form" icon="fa fa-save" id="saveButton"
+				value="#{msgs['jbutler.crud.button.save']}" />
+		</h:form>
+	</ui:define>
+	
+</ui:composition>

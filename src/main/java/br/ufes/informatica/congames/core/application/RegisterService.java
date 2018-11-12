@@ -27,14 +27,19 @@ public class RegisterService implements Serializable {
 	
 		
 	public void register(User newUser) throws Exception {
-		long matchedUsersCount = manageUsersService.countFiltered(new SimpleFilter(null, "username", null), newUser.getUsername());
+		long matchedUsersCount = 
+				manageUsersService.countFiltered(
+						new SimpleFilter(null, "username", null),
+						newUser.getUsername());
 		
 		if(matchedUsersCount > 0)
 		{
 			throw new UsernameTakenException();
 		}
 		
-		matchedUsersCount = manageUsersService.countFiltered(new SimpleFilter(null, "email", null), newUser.getEmail());
+		matchedUsersCount = manageUsersService.countFiltered(
+				new SimpleFilter(null, "email", null),
+				newUser.getEmail());
 		
 		if(matchedUsersCount > 0)
 		{

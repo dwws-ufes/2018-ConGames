@@ -38,6 +38,9 @@ public class RegisterController extends JSFController implements Serializable {
 	@NotNull(message = "Type your e-mail.")
 	@Email(message = "Enter a valid e-mail")
 	private String email;
+	
+	@NotNull(message = "Type your real name.")
+	private String name;
 
 	@NotNull(message = "Select account type.")
 	private UserRole userRole;
@@ -49,6 +52,7 @@ public class RegisterController extends JSFController implements Serializable {
 		newUser.setUsername(username);
 		newUser.setPassword(password);
 		newUser.setUserRole(userRole);
+		newUser.setName(name);
 
 		getExternalContext().getFlash().setKeepMessages(true);
 
@@ -85,6 +89,7 @@ public class RegisterController extends JSFController implements Serializable {
 		username = null;
 		password = null;
 		userRole = null;
+		name = null;
 	}
 
 	public String getUsername() {
@@ -109,6 +114,14 @@ public class RegisterController extends JSFController implements Serializable {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public UserRole getUserRole() {

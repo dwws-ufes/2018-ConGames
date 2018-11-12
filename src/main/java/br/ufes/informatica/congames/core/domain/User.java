@@ -1,7 +1,11 @@
 package br.ufes.informatica.congames.core.domain;
 
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.validation.constraints.Email;
@@ -15,23 +19,30 @@ public class User extends PersistentObjectSupport {
 	private static final long serialVersionUID = 1L;
 
 	@NotNull
-	@Size(max = 15)
 	private String username;
 	
 	@NotNull
-	@Size(min = 6, max = 20)
+	@Size(min = 6)
 	private String password;
 	
 	@NotNull
 	@Email
 	private String email;
+	
+	@NotNull
+	private String name;
+	
+	private String website;
 
 	@PositiveOrZero
 	private double funds;
 	
 	@ManyToOne
 	private UserRole userRole;
-
+	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "publisher")
+	private Set<Game> publishedGames;
+	
 	public String getUsername() {
 		return username;
 	}
@@ -66,12 +77,36 @@ public class User extends PersistentObjectSupport {
 		this.funds = funds;
 	}
 
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getWebsite() {
+		return website;
+	}
+
+	public void setWebsite(String website) {
+		this.website = website;
+	}
+
 	public UserRole getUserRole() {
 		return userRole;
 	}
 
 	public void setUserRole(UserRole userRole) {
 		this.userRole = userRole;
+	}
+
+	public Set<Game> getPublishedGames() {
+		return publishedGames;
+	}
+
+	public void setPublishedGames(Set<Game> publishedGames) {
+		this.publishedGames = publishedGames;
 	}
 
 }

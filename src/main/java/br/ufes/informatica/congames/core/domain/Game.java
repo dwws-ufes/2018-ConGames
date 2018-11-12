@@ -27,9 +27,15 @@ public class Game extends PersistentObjectSupport implements Comparable<Game> {
 	@Temporal(TemporalType.DATE)
 	private Date publishDate;
 	
+	@NotNull
+	private double price;
+	
 	@ManyToOne
 	private Genre genre;
 
+	@NotNull
+	@ManyToOne
+	private User publisher;
 
 	public String getName() {
 		return name;
@@ -55,6 +61,15 @@ public class Game extends PersistentObjectSupport implements Comparable<Game> {
 		publishDate = _publishDate;
 	}
 	
+
+	public double getPrice() {
+		return price;
+	}
+
+	public void setPrice(double price) {
+		this.price = price;
+	}
+	
 	public Genre getGenre() {
 		return genre;
 	}
@@ -63,6 +78,15 @@ public class Game extends PersistentObjectSupport implements Comparable<Game> {
 		this.genre = genre;
 	}
 
+	public User getPublisher() {
+		return publisher;
+	}
+	
+	public void setPublisher(User publisher) {
+		this.publisher = publisher;
+	}
+
+	
 	@Override
 	public int compareTo(Game o) {
 		return 1;

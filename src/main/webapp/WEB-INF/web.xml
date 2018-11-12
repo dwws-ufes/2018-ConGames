@@ -71,7 +71,6 @@
      		<role-name>Publisher</role-name>
   		</auth-constraint>
 	</security-constraint>
-	
 	-->
     
 	<security-constraint>
