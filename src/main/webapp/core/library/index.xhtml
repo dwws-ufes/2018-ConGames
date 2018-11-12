@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:adm="http://github.com/adminfaces"
+	template="/WEB-INF/templates/template.xhtml">
+
+	<f:metadata>
+	    <f:event type="preRenderView" listener="#{sessionController.checkClientRole}" />
+	</f:metadata>
+	
+	<ui:define name="title">
+		<h:outputText value="#{msgsCore['library.title']}" />
+	</ui:define>
+
+	<ui:define name="description">
+		<h:outputText value="#{msgsCore['library.title.description']}" />
+	</ui:define>
+
+	<ui:define name="body">
+		<p:carousel id="gamesCarousel" value="#{libraryController.games}"
+			headerText="#{msgsCore['library.title']}" var="game"
+			itemStyle="text-align:left" responsive="true">
+			<p:panelGrid columns="2" style="width:100%;margin:10px 0px"
+				columnClasses="label,value" layout="grid"
+				styleClass="ui-panelgrid-blank">
+
+				<h:outputText value="Name" style="color:#333;" />
+				<h:outputText value="#{game.name}" />
+
+				<h:outputText value="Genre" style="color:#333;" />
+				<h:outputText value="#{game.genre.name}" />
+
+				<h:outputText value="Publisher" style="color:#333;" />
+				<h:outputText value="#{game.publisher.name}" />
+			</p:panelGrid>
+
+
+			<f:facet name="footer">
+				<h:outputText
+					value="#{libraryController.games.size()} games found" />
+			</f:facet>
+		</p:carousel>
+	</ui:define>
+
+</ui:composition>

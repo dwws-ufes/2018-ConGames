@@ -6,7 +6,7 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:adm="http://github.com/adminfaces"
 	template="/WEB-INF/templates/template.xhtml">
-	
+
 	<f:metadata>
 	    <f:event type="preRenderView" listener="#{sessionController.checkPublisherRole}" />
 	</f:metadata>
@@ -39,6 +39,8 @@
 		            <f:selectItem itemLabel="Select Genre" itemValue="" />
 		            <f:selectItems value="#{manageGamesController.genreOptions}" />
 		        </p:selectOneMenu>
+		        <p:outputLabel for="priceField" value="#{msgsCore['manageGames.field.price']} " />
+		        <p:inputNumber step="0.01" id="priceField" decimalPlaces="0" value="#{manageGamesController.selectedEntity.price}" style="width: 100%;"/>
 				<p:outputLabel for="submissionDeadlineField" value="#{msgsCore['manageGames.field.publishDate']}" />
 				<p:calendar id="submissionDeadlineField" value="#{manageGamesController.selectedEntity.publishDate}" showOn="button"
 					pattern="dd/MM/yyyy" mask="true" style="width: 100%;" />

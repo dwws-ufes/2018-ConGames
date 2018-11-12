@@ -22,9 +22,6 @@
 	<ui:define name="body">
 		<adm:breadcrumb link="/core/myProfile/index" title="#{msgsCore['myProfile.title']}" />
 		<h:form id="updateProfileForm">
-			<p:messages id="messages" showDetail="true" closable="true">
-		        <p:autoUpdate />
-		    </p:messages>
 		 
 			<p:panelGrid columns="2" columnClasses="ui-grid-col-4,ui-grid-col-8" layout="grid" styleClass="ui-panelgrid-blank">
 				<p:outputLabel for="usernameField" value="#{msgsCore['myProfile.field.username']} " />

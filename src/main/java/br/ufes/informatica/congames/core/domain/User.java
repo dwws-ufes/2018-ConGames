@@ -4,6 +4,7 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
@@ -42,6 +43,9 @@ public class User extends PersistentObjectSupport {
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "publisher")
 	private Set<Game> publishedGames;
+	
+	@ManyToMany
+	private Set<Game> boughtGames;
 	
 	public String getUsername() {
 		return username;
@@ -107,6 +111,20 @@ public class User extends PersistentObjectSupport {
 
 	public void setPublishedGames(Set<Game> publishedGames) {
 		this.publishedGames = publishedGames;
+	}
+	
+	public Set<Game> getBoughtGames() {
+		return boughtGames;
+	}
+
+	public void setBoughtGames(Set<Game> boughtGames) {
+		this.boughtGames = boughtGames;
+	}
+
+	@Override
+	public String toString()
+	{
+	    return this.name;
 	}
 
 }

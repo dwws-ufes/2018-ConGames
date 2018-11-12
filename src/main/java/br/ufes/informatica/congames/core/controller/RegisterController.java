@@ -8,7 +8,7 @@ import br.ufes.informatica.congames.core.exception.EmailTakenException;
 import br.ufes.informatica.congames.core.exception.UsernameTakenException;
 
 import javax.ejb.EJB;
-import javax.enterprise.context.SessionScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.inject.Named;
 import javax.validation.constraints.Email;
@@ -20,7 +20,7 @@ import java.io.Serializable;
 import java.util.List;
 
 @Named
-@SessionScoped
+@RequestScoped
 public class RegisterController extends JSFController implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -59,8 +59,6 @@ public class RegisterController extends JSFController implements Serializable {
 		try {
 			registerService.register(newUser);
 
-			clearFields();
-
 			getFacesContext().addMessage(null,
 					new FacesMessage(FacesMessage.SEVERITY_INFO, "Registration complete! Please sign in below.", ""));
 			
@@ -82,14 +80,6 @@ public class RegisterController extends JSFController implements Serializable {
 			getExternalContext().redirect(getExternalContext().getRequestContextPath() + "/sign-up.xhtml");
 		}
 
-	}
-
-	public void clearFields() {
-		email = null;
-		username = null;
-		password = null;
-		userRole = null;
-		name = null;
 	}
 
 	public String getUsername() {

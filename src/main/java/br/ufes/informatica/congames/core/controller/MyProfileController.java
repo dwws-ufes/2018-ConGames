@@ -3,7 +3,7 @@ package br.ufes.informatica.congames.core.controller;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.enterprise.context.SessionScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -15,7 +15,7 @@ import br.ufes.inf.nemo.jbutler.ejb.controller.JSFController;
 import br.ufes.informatica.congames.core.application.ManageUsersService;
 import br.ufes.informatica.congames.core.domain.User;
 
-@Named @SessionScoped
+@Named @RequestScoped
 public class MyProfileController extends JSFController {
 	private static final long serialVersionUID = 1L;
 

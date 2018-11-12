@@ -6,11 +6,11 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:adm="http://github.com/adminfaces"
 	template="/WEB-INF/templates/template.xhtml">
-
+	
 	<f:metadata>
 	    <f:event type="preRenderView" listener="#{sessionController.checkPublisherRole}" />
 	</f:metadata>
-	
+
 	<ui:define name="title">
 		<h:outputText value="#{msgsCore['manageGames.title']}" />
 	</ui:define>
@@ -21,44 +21,58 @@
 	
 	<ui:define name="body">
 		<adm:breadcrumb link="/core/manageGames/index" title="#{msgsCore['manageGames.title']}" />
-		<h:form id="listingForm">
-			<p:dataTable id="entitiesDataTable" var="entity" value="#{manageGamesController.lazyEntities}"
-				selection="#{manageGamesController.selectedEntity}" selectionMode="single" paginator="true"
-				rows="#{manageGamesController.maxDataTableRowsPerPage}"
-				paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
-				rowsPerPageTemplate="#{manageGamesController.halfMaxDataTableRowsPerPage},#{manageGamesController.maxDataTableRowsPerPage},#{manageGamesController.doubleMaxDataTableRowsPerPage}"
-				lazy="true" paginatorPosition="bottom" emptyMessage="#{msgsCore['manageGames.text.noEntities']}">
-				<p:ajax event="rowSelect" update="buttonsGroup" />
-				<p:ajax event="rowUnselect" update="buttonsGroup" />
-				<f:facet name="header">
-					<h:outputText value="#{msgsCore['manageGames.text.entities']}" />
-				</f:facet>
-				<p:column headerText="#{msgsCore['manageGames.field.name']}">
-					<h:outputText value="#{entity.name}" />
-				</p:column>
-				<p:column headerText="#{msgsCore['manageGames.field.genre']}">
-					<h:outputText value="#{entity.genre}" />
-				</p:column>
-				<p:column headerText="#{msgsCore['manageGames.field.publishDate']}">
-					<h:outputText value="#{entity.publishDate}">
-						<f:convertDateTime type="date" pattern="#{msgs['jbutler.format.date.java']}" />
-					</h:outputText>
-				</p:column>
-				<p:column headerText="#{msgsCore['manageGames.field.description']}">
-					<h:outputText value="#{entity.description}" />
-				</p:column>
-				<f:facet name="footer">
-					<h:panelGroup id="buttonsGroup">
-						<p:commandButton action="#{manageGamesController.create}" icon="fa fa-plus" value="#{msgs['jbutler.crud.button.create']}" />
-						<p:commandButton action="#{manageGamesController.retrieve}" icon="fa fa-search" value="#{msgs['jbutler.crud.button.retrieve']}"
-							disabled="#{manageGamesController.selectedEntity == null}" />
-						<p:commandButton action="#{manageGamesController.update}" icon="fa fa-edit" value="#{msgs['jbutler.crud.button.update']}"
-							disabled="#{manageGamesController.selectedEntity == null}" />
-						<p:commandButton action="#{manageGamesController.trash}" icon="fa fa-trash" value="#{msgs['jbutler.crud.button.delete']}"
-							disabled="#{manageGamesController.selectedEntity == null}" update=":listingForm:trashGroup" />
-					</h:panelGroup>
-				</f:facet>
-			</p:dataTable>
+			<style type="text/css">   
+		  .ui-datatable {
+		  overflow-y: scroll !important;
+		  overflow-x: hidden !important; 
+		      margin-bottom:-200px;
+		      margin-right: 200px;
+		      margin-left: 200px;
+		      padding: 0px;
+		  }
+		 
+		  .ui-datatable-frozenlayout-left {
+		      width:20%;
+		  }
+		 
+		  .ui-datatable-frozenlayout-right {
+		      width:100%;
+		  }
+	      </style>
+			<h:form id="listingForm">
+
+				<p:dataTable id="singleDT" var="game" value="#{manageGamesController.publishedGames}" selectionMode="single" selection="#{manageGamesController.selectedEntity}"  rowKey="#{game.name}" scrollable="true" scrollHeight="150">
+					<p:ajax event="rowSelect" update="buttonsGroup"  />
+	      			
+			        <p:column headerText="Name">
+			            <h:outputText value="#{game.name}" />
+			        </p:column>
+			        <p:column headerText="Genre">
+			            <h:outputText value="#{game.genre}" />
+			        </p:column>
+			        <p:column headerText="Publishment Date">
+			            <h:outputText value="#{game.publishDate}" />
+			        </p:column>
+			        <p:column headerText="Price">
+			            <h:outputText value="#{game.price}" />
+			        </p:column>
+			        
+       				<f:facet name="footer">
+				        <h:panelGroup id="buttonsGroup">
+							<p:commandButton action="#{manageGamesController.create}" icon="fa fa-plus" value="#{msgs['jbutler.crud.button.create']}" />
+							<p:commandButton action="#{manageGamesController.retrieve}" icon="fa fa-search" value="#{msgs['jbutler.crud.button.retrieve']}"
+								disabled="#{manageGamesController.selectedEntity == null}" />
+							<p:commandButton action="#{manageGamesController.update}" icon="fa fa-edit" value="#{msgs['jbutler.crud.button.update']}"
+								disabled="#{manageGamesController.selectedEntity == null}" />
+							<p:commandButton action="#{manageGamesController.trash}" icon="fa fa-trash" value="#{msgs['jbutler.crud.button.delete']}"
+								disabled="#{manageGamesController.selectedEntity == null}" update=":listingForm:trashGroup" />
+						</h:panelGroup>
+					</f:facet>
+	
+		    	</p:dataTable>
+	    	
+	    	
+	    	
 			<h:panelGroup id="trashGroup">
 				<hr />
 				<p:panel id="trashPanel" header="#{msgs['jbutler.crud.text.trashHeader']}" toggleable="true" toggleSpeed="500"

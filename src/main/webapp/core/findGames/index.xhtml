@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:adm="http://github.com/adminfaces"
+	template="/WEB-INF/templates/template.xhtml">
+
+	<f:metadata>
+	    <f:event type="preRenderView" listener="#{sessionController.checkClientRole}" />
+	</f:metadata>
+
+	<ui:define name="title">
+		<h:outputText value="#{msgsCore['findGames.title']}" />
+	</ui:define>
+
+	<ui:define name="description">
+		<h:outputText value="#{msgsCore['findGames.title.description']}" />
+	</ui:define>
+
+	<ui:define name="body">
+		<adm:breadcrumb link="/core/findGames/index"
+			title="#{msgsCore['findGames.title']}" />
+		<h:form id="updateProfileForm">
+			<p:messages id="messages" showDetail="true" closable="true">
+				<p:autoUpdate />
+			</p:messages>
+
+			<h:panelGrid columns="2">
+				<p:panel>
+					<p:outputLabel for="genreField"
+						value="#{msgsCore['findGames.filter.genre']} " />
+					<p:selectOneMenu id="genreField"
+						value="#{findGamesController.selectedGenre}"
+						converter="omnifaces.SelectItemsConverter" dynamic="true">
+						<f:selectItem itemLabel="Any genre" itemValue="" />
+						<f:selectItems value="#{findGamesController.genreOptions}" />
+
+						<f:ajax listener="#{findGamesController.applyFilters}"
+							render="gamesCarousel" />
+					</p:selectOneMenu>
+				</p:panel>
+				<p:panel>
+					<p:outputLabel for="publisherField"
+						value="#{msgsCore['findGames.filter.publisher']} " />
+					<p:selectOneMenu id="publisherField"
+						value="#{findGamesController.selectedPublisher}"
+						converter="omnifaces.SelectItemsConverter" dynamic="true">
+						<f:selectItem itemLabel="Any publisher" itemValue="" />
+						<f:selectItems value="#{findGamesController.publisherOptions}" />
+
+						<f:ajax listener="#{findGamesController.applyFilters}"
+							render="gamesCarousel" />
+					</p:selectOneMenu>
+				</p:panel>
+			</h:panelGrid>
+
+
+			<p:carousel id="gamesCarousel" value="#{findGamesController.games}"
+				headerText="#{msgsCore['findGames.title']}" var="game"
+				itemStyle="text-align:left" responsive="true">
+				<p:panelGrid columns="2" style="width:100%;margin:10px 0px"
+					columnClasses="label,value" layout="grid"
+					styleClass="ui-panelgrid-blank">
+
+					<h:outputText value="Name" style="color:#333;" />
+					<h:outputText value="#{game.name}" />
+
+					<h:outputText value="Genre" style="color:#333;" />
+					<h:outputText value="#{game.genre.name}" />
+
+					<h:outputText value="Publisher" style="color:#333;" />
+					<h:outputText value="#{game.publisher.name}" />
+
+					<h:outputText value="Price" style="color:#333;" />
+					<h:outputText value="$#{game.price}" />
+
+					<h:outputText value=" " style="color:#333;" />
+					<p:commandButton icon="fa fa-shopping-cart" value="Buy"
+						process="@form" update=":updateProfileForm:buySection">
+						<f:setPropertyActionListener value="#{game}"
+							target="#{findGamesController.selectedGame}" />
+					</p:commandButton>
+				</p:panelGrid>
+
+
+				<f:facet name="footer">
+					<h:outputText
+						value="#{findGamesController.games.size()} games found" />
+				</f:facet>
+			</p:carousel>
+
+			<p:panel id="buySection" header="You are about to purchase: #{findGamesController.selectedGame.name}"
+				style="margin:20px 0">
+				<h:panelGrid columns="2" cellpadding="10" rendered="#{findGamesController.selectedGame != null}">
+					<h:outputText value="The game costs:"/>
+					<h:outputText value="$#{findGamesController.selectedGame.price}"/>					
+					
+					<h:outputText value="You have:" />
+					<h:outputText value="$#{findGamesController.currentUser.funds}" />
+					
+					<h:outputText value="Confirm purchase?" />
+					<p:commandButton icon="fa fa-check" value="Yes, buy this game"
+						action="#{findGamesController.buyGame}"/>
+				</h:panelGrid>
+			</p:panel>
+
+		</h:form>
+	</ui:define>
+
+</ui:composition>
