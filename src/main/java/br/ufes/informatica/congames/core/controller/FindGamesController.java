@@ -5,21 +5,12 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.enterprise.context.RequestScoped;
-import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
 import br.ufes.inf.nemo.jbutler.ejb.controller.JSFController;
 import br.ufes.informatica.congames.core.application.FindGamesService;
-import br.ufes.informatica.congames.core.application.ManageGamesService;
-import br.ufes.informatica.congames.core.application.ManageGenresService;
-import br.ufes.informatica.congames.core.application.ManageUsersService;
 import br.ufes.informatica.congames.core.domain.Game;
 import br.ufes.informatica.congames.core.domain.Genre;
 import br.ufes.informatica.congames.core.domain.User;
@@ -33,15 +24,6 @@ public class FindGamesController extends JSFController {
 
 	@EJB
 	FindGamesService findGamesService;
-
-	@EJB
-	private ManageGamesService manageGamesService;
-
-	@EJB
-	private ManageGenresService manageGenresService;
-
-	@EJB
-	private ManageUsersService manageUsersService;
 
 	@Inject
 	private SessionController sessionController;
@@ -58,19 +40,19 @@ public class FindGamesController extends JSFController {
 
 	@PostConstruct
 	public void init() {
-		games = manageGamesService.retrieveAll();
+		games = findGamesService.retrieveAllGames();
 		currentUser = sessionController.getCurrentUser();
 	}
 
 	public void applyFilters() {
-		games = manageGamesService.retrieveAll();
+		games = findGamesService.retrieveAllGames();
 
 		if (selectedGenre != null) {
-			games = manageGamesService.filterByGenre(games, selectedGenre);
+			games = findGamesService.filterByGenre(games, selectedGenre);
 		}
 
 		if (selectedPublisher != null) {
-			games = manageGamesService.filterByPublisher(games, selectedPublisher);
+			games = findGamesService.filterByPublisher(games, selectedPublisher);
 		}
 	}
 
@@ -136,11 +118,11 @@ public class FindGamesController extends JSFController {
 	}
 
 	public List<Genre> getGenreOptions() {
-		return manageGenresService.getDAO().retrieveAll();
+		return findGamesService.retrieveAllGenres();
 	}
 
 	public List<User> getPublisherOptions() {
-		return manageUsersService.getDAO().retrieveAll();
+		return findGamesService.retrieveAllPublishers();
 	}
 
 }

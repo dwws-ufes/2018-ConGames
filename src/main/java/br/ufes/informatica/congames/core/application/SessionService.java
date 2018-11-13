@@ -17,12 +17,11 @@ public class SessionService implements Serializable {
 	
 	@EJB
 	private ManageUsersService userService;
-
 	
 	public User login(String username, String password) throws InvalidLoginException {
 		
 		User user = userService.find(username, password);
-		
+				
 		if(user == null) throw new InvalidLoginException();
 		
 		return user;

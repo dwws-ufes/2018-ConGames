@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 import javax.ejb.Local;
 
-
 @Local
 public interface ManageFundsService extends Serializable {
 	public double getUserFunds(long userID);
