@@ -24,30 +24,36 @@
 				</p:link></li>
 
 			<li class="header"><h:outputText
-					value="#{msgsCore['core.menu.admin']}" /></li>
+					value="#{msgsCore['core.menu.admin']}"
+					rendered="#{sessionController.currentUser.userRole.name eq 'Publisher'}" /></li>
 			<li><p:link outcome="/core/manageGames/index"
-					onclick="clearBreadCrumbs()">
+					onclick="clearBreadCrumbs()"
+					rendered="#{sessionController.currentUser.userRole.name eq 'Publisher'}">
 					<i class="fa fa-gamepad"></i>
 					<span><h:outputText
 							value="#{msgsCore['core.menu.admin.manageGames']}" /></span>
 				</p:link></li>
 			<li><p:link outcome="/core/manageGenres/index"
-					onclick="clearBreadCrumbs()">
+					onclick="clearBreadCrumbs()"
+					rendered="#{sessionController.currentUser.userRole.name eq 'Publisher'}">
 					<i class="fa fa-genderless"></i>
 					<span><h:outputText
 							value="#{msgsCore['core.menu.admin.manageGenres']}" /></span>
 				</p:link></li>
 				
 			<li class="header"><h:outputText
-					value="#{msgsCore['core.menu.client']}" /></li>
+					value="#{msgsCore['core.menu.client']}"
+					rendered="#{sessionController.currentUser.userRole.name eq 'Client'}" /></li>
 			<li><p:link outcome="/core/findGames/index"
-					onclick="clearBreadCrumbs()">
+					onclick="clearBreadCrumbs()"
+					rendered="#{sessionController.currentUser.userRole.name eq 'Client'}">
 					<i class="fa fa-search"></i>
 					<span><h:outputText
 							value="#{msgsCore['core.menu.client.findGames']}" /></span>
 				</p:link></li>
 			<li><p:link outcome="/core/library/index"
-					onclick="clearBreadCrumbs()">
+					onclick="clearBreadCrumbs()"
+					rendered="#{sessionController.currentUser.userRole.name eq 'Client'}">
 					<i class="fa fa-folder"></i>
 					<span><h:outputText
 							value="#{msgsCore['core.menu.client.library']}" /></span>

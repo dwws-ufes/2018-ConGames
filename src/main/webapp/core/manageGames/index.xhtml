@@ -25,10 +25,8 @@
 		  .ui-datatable {
 		  overflow-y: scroll !important;
 		  overflow-x: hidden !important; 
-		      margin-bottom:-200px;
-		      margin-right: 200px;
-		      margin-left: 200px;
-		      padding: 0px;
+		      margin-right: 50px;
+		      margin-left: 50px;
 		  }
 		 
 		  .ui-datatable-frozenlayout-left {
@@ -41,7 +39,7 @@
 	      </style>
 			<h:form id="listingForm">
 
-				<p:dataTable id="singleDT" var="game" value="#{manageGamesController.publishedGames}" selectionMode="single" selection="#{manageGamesController.selectedEntity}"  rowKey="#{game.name}" scrollable="true" scrollHeight="150">
+				<p:dataTable id="singleDT" var="game" value="#{manageGamesController.publishedGames}" selectionMode="single" selection="#{manageGamesController.selectedEntity}"  rowKey="#{game.name}" scrollable="true" scrollHeight="350">
 					<p:ajax event="rowSelect" update="buttonsGroup"  />
 	      			
 			        <p:column headerText="Name">

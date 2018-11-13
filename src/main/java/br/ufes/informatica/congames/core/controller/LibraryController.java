@@ -40,7 +40,7 @@ public class LibraryController extends JSFController {
 	private SessionController sessionController;
 	  
     
-    public Set<Game> getGames() {
+    public List<Game> getGames() {
     	return libraryService.getGames(
     			sessionController.getCurrentUser().getId());
     }

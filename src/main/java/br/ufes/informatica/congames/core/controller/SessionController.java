@@ -34,6 +34,8 @@ public class SessionController extends JSFController implements Serializable {
 	private String password;
 
 	private boolean remember;
+	
+	private FacesMessage messageToDisplay;
 
 	public void login() throws IOException {
 		getExternalContext().getFlash().setKeepMessages(true);
@@ -63,18 +65,23 @@ public class SessionController extends JSFController implements Serializable {
 		}
 	}
 	
+	public void displayMessage() {
+		if(messageToDisplay != null) {
+			getFacesContext().addMessage(null, messageToDisplay);
+			messageToDisplay = null;
+		}
+	}
+	
 	public void checkPublisherRole() throws IOException {
 		if(currentUser == null || currentUser.getUserRole().getId() != 1) {
-			getExternalContext().getFlash().setKeepMessages(true);
-			getFacesContext().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "You don't have permission for this resource.", ""));
+			messageToDisplay = new FacesMessage(FacesMessage.SEVERITY_WARN, "You don't have permission to access this area", "");
 			getExternalContext().redirect(getExternalContext().getRequestContextPath() + "/index.xhtml");
 		}
 	}
 	
 	public void checkClientRole() throws IOException {
 		if(currentUser == null || currentUser.getUserRole().getId() != 2) {
-			getExternalContext().getFlash().setKeepMessages(true);
-			getFacesContext().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "You don't have permission for this resource.", ""));
+			messageToDisplay = new FacesMessage(FacesMessage.SEVERITY_WARN, "You don't have permission to access this area", "");
 			getExternalContext().redirect(getExternalContext().getRequestContextPath() + "/index.xhtml");
 		}
 	}

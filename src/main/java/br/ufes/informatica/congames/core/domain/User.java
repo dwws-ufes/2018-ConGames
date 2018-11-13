@@ -1,9 +1,10 @@
 package br.ufes.informatica.congames.core.domain;
 
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -42,10 +43,10 @@ public class User extends PersistentObjectSupport {
 	private UserRole userRole;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "publisher")
-	private Set<Game> publishedGames;
+	private List<Game> publishedGames;
 	
 	@ManyToMany
-	private Set<Game> boughtGames;
+	private List<Game> boughtGames;
 	
 	public String getUsername() {
 		return username;
@@ -105,19 +106,19 @@ public class User extends PersistentObjectSupport {
 		this.userRole = userRole;
 	}
 
-	public Set<Game> getPublishedGames() {
+	public List<Game> getPublishedGames() {
 		return publishedGames;
 	}
 
-	public void setPublishedGames(Set<Game> publishedGames) {
+	public void setPublishedGames(List<Game> publishedGames) {
 		this.publishedGames = publishedGames;
 	}
 	
-	public Set<Game> getBoughtGames() {
+	public List<Game> getBoughtGames() {
 		return boughtGames;
 	}
 
-	public void setBoughtGames(Set<Game> boughtGames) {
+	public void setBoughtGames(List<Game> boughtGames) {
 		this.boughtGames = boughtGames;
 	}
 

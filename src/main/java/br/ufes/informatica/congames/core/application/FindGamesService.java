@@ -27,16 +27,23 @@ public class FindGamesService implements Serializable {
 	private UserDAO userDAO;
 		
 		
-	public void buyGame(User buyer, Game game) throws Exception {
+	public User buyGame(long userId, Game game) throws Exception {
+		User user = userDAO.retrieveById(userId);
 		
-		if(buyer.getFunds() < game.getPrice()) {
+		if(user.getBoughtGames().contains(game)) {
+			throw new AlreadyBoughtGameException();
+		}
+
+		if(user.getFunds() < game.getPrice()) {
 			throw new InsufficientFundsException();
 		}
 		
-		buyer.setFunds(buyer.getFunds() - game.getPrice());
-		//buyer.getBoughtGames().add(game);
+		user.setFunds(user.getFunds() - game.getPrice());
+		user.getBoughtGames().add(game);
 		
-		userDAO.save(buyer);
+		userDAO.save(user);
+		
+		return user;
 	}
 	
 }

@@ -1,6 +1,7 @@
 package br.ufes.informatica.congames.core.application;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 import javax.annotation.security.PermitAll;
 import javax.ejb.EJB;
@@ -23,10 +24,11 @@ public class LibraryService implements Serializable {
 	@EJB
 	private UserDAO userDAO;
 		
-	public Set<Game> getGames(long userId) {
+	public List<Game> getGames(long userId) {
 		User user = userDAO.retrieveById(userId);
 		
-		user = userDAO.merge(user);
+		//user.setBoughtGames(userDAO.merge(user).getBoughtGames());
+		user.getBoughtGames().size();
 		return user.getBoughtGames();
 	}
 	

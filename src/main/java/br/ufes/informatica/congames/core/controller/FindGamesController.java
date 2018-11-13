@@ -79,7 +79,7 @@ public class FindGamesController extends JSFController {
 
 		try {
 
-			findGamesService.buyGame(currentUser, selectedGame);
+			currentUser = findGamesService.buyGame(currentUser.getId(), selectedGame);
 
 			getFacesContext().addMessage(null,
 					new FacesMessage(FacesMessage.SEVERITY_INFO, "Purchase successful!", null));
@@ -95,7 +95,7 @@ public class FindGamesController extends JSFController {
 
 		} catch (Exception e) {
 			getFacesContext().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error trying to buy game :'(", ""));
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error trying to buy game :(", ""));
 		}
 	}
 
