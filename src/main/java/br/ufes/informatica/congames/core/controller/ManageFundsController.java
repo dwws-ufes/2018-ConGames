@@ -8,7 +8,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import br.ufes.informatica.congames.core.application.ManageFundsService;
-import br.ufes.informatica.congames.core.domain.User;
 
 @Named @SessionScoped
 public class ManageFundsController implements Serializable {
@@ -22,7 +21,6 @@ public class ManageFundsController implements Serializable {
 	
 	private int fundsInput;
 	
-	private double userFunds;
 	public double getUserFunds() throws Exception
 	{
 		return sessionController.getCurrentUser().getFunds();

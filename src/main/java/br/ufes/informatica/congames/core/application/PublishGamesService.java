@@ -5,10 +5,13 @@ import java.util.List;
 
 import javax.ejb.Local;
 import br.ufes.informatica.congames.core.domain.Game;
+import br.ufes.informatica.congames.core.exception.GameAlreadyPublishedException;
 
 @Local
 public interface PublishGamesService extends Serializable {
-			
-	public List<Game> SearchGamesByPublisher(String name);
+	
+	public void publishGame(Game game) throws GameAlreadyPublishedException;
+	
+	public List<Game> searchGamesByPublisher(String name);
 	
 }

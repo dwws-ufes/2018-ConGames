@@ -6,12 +6,12 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:adm="http://github.com/adminfaces"
 	template="/WEB-INF/templates/template.xhtml">
-	
+
 	<style type="text/css">
-	    .ui-panelgrid .ui-grid-responsive .ui-panelgrid-cell {
-	        text-align: center;
-	    }
-	</style>
+.ui-panelgrid .ui-grid-responsive .ui-panelgrid-cell {
+	text-align: center;
+}
+</style>
 
 	<f:metadata>
 		<f:event type="preRenderView"
@@ -31,32 +31,75 @@
 			title="#{msgsCore['publishGames.title']}" />
 		<h:form id="updateProfileForm">
 
-			<h:commandButton value="Confirm" onclick="">
+			<h:commandButton value="Search your games" onclick="">
 				<f:ajax listener="#{publishGamesController.searchPublisherGames}"
 					render="gamesCarousel" />
 			</h:commandButton>
 
 
 			<p:carousel id="gamesCarousel"
+				value="#{publishGamesController.games}" headerText="Games found"
+				var="game" itemStyle="text-align:left" numVisible="1"
+				labelStyle="text-align:right" style="width:600px" circular="true">
+				<h:panelGrid columns="2" style="width:100%"
+					columnClasses="label,value">
+					
+						<f:facet name="header">
+							<div style="text-align:center; margin-bottom: 15px;">
+								<h:outputText value="#{game.name}" />
+							</div>
+						</f:facet>
+					
+
+					<h:outputText value="Name" style="color:#333; text-aling:right;" />
+					<h:outputText value="#{game.name}" />
+
+					<h:outputText value="Genre" style="color:#333;" />
+					<h:outputText value="#{game.genre.name}" />
+
+					<h:outputText value="Description" style="color:#333;" />
+					<h:outputText value="#{game.description}" />
+
+
+					<f:facet name="footer">
+						<br/>
+						<div style="text-align:center; margin-top: 15px;">
+							<p:commandButton icon="fa fa-check" value="Publish this game"
+								action="#{publishGamesController.publishGame}">
+								<f:setPropertyActionListener value="#{game}"
+									target="#{publishGamesController.selectedGame}" />
+							</p:commandButton>
+						</div>
+				
+					</f:facet>
+
+				</h:panelGrid>
+			</p:carousel>
+
+			<!-- 
+			<p:carousel id="gamesCarousel"
 				value="#{publishGamesController.games}"
 				headerText="#{msgsCore['publishGames.title']}" var="game"
 				itemStyle="text-align:left" responsive="true">
 				<p:panelGrid columns="2" style="width:100%; margin:10px 0px"
-					columnClasses="label,value" layout="grid"
-					styleClass="ui-panelgrid">
+					columnClasses="label,value" layout="grid" styleClass="ui-panelgrid">
 
 					<h:outputText value="Name" style="color:#333;" />
 					<h:outputText value="#{game.name}" />
-					
+
+					<h:outputText value="Genre" style="color:#333;" />
+					<h:outputText value="#{game.genre.name}" />
+
 					<h:outputText value="Description" style="color:#333;" />
 					<h:outputText value="#{game.description}" />
-					
+
 				</p:panelGrid>
 
 
 				<f:facet name="footer">
 				</f:facet>
 			</p:carousel>
+			 -->
 
 		</h:form>
 	</ui:define>

@@ -6,5 +6,6 @@ import br.ufes.informatica.congames.core.domain.Game;
 
 @Local
 public interface GameDAO extends BaseDAO<Game> {
-
+	
+	public Game retrieveByName(String name);
 }

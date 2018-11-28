@@ -6,5 +6,7 @@ import br.ufes.informatica.congames.core.domain.Genre;
 
 @Local
 public interface GenreDAO extends BaseDAO<Genre> {
+	
+	public Genre retrieveByName(String name);
 
 }

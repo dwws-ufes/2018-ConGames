@@ -1,6 +1,5 @@
 package br.ufes.informatica.congames.core.controller;
 
-import java.io.IOException;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -10,13 +9,10 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import br.ufes.inf.nemo.jbutler.ejb.controller.JSFController;
-import br.ufes.informatica.congames.core.application.FindGamesService;
 import br.ufes.informatica.congames.core.application.PublishGamesService;
 import br.ufes.informatica.congames.core.domain.Game;
-import br.ufes.informatica.congames.core.domain.Genre;
 import br.ufes.informatica.congames.core.domain.User;
-import br.ufes.informatica.congames.core.exception.AlreadyBoughtGameException;
-import br.ufes.informatica.congames.core.exception.InsufficientFundsException;
+import br.ufes.informatica.congames.core.exception.GameAlreadyPublishedException;
 
 @Named
 @ViewScoped
@@ -41,37 +37,56 @@ public class PublishGamesController extends JSFController {
 	}
 
 	public void searchPublisherGames() {
-		games = publishGamesService.SearchGamesByPublisher(currentUser.getName());
-		
-		if(games == null) {
+		games = publishGamesService.searchGamesByPublisher(currentUser.getName());
+
+		if (games == null) {
 			getFacesContext().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_WARN, "No games found for " + currentUser.getName(), null));
+					new FacesMessage(FacesMessage.SEVERITY_WARN,
+							"Nothing!",
+							"No games found for " + currentUser.getName()));
+		}
+		else {
+			getFacesContext().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_INFO,
+							games.size() + " games found!",
+							"Searched for " + currentUser.getName() + "'s games"));
+
 		}
 	}
 
-//	public void buyGame() throws IOException {
-//		getExternalContext().getFlash().setKeepMessages(true);
-//
-//		try {
-//
-//			currentUser = publishGamesService.buyGame(currentUser.getId(), selectedGame);
-//
-//			getFacesContext().addMessage(null,
-//					new FacesMessage(FacesMessage.SEVERITY_INFO, "Purchase successful!", null));
-//
-//		} catch (AlreadyBoughtGameException e) {
-//
-//			getFacesContext().addMessage(null,
-//					new FacesMessage(FacesMessage.SEVERITY_ERROR, "You already have this game!", ""));
-//
-//		} catch (InsufficientFundsException e) {
-//			getFacesContext().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Insufficient funds", ""));
-//
-//		} catch (Exception e) {
-//			getFacesContext().addMessage(null,
-//					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error trying to buy game :(", ""));
-//		}
-//	}
+	public void publishGame() {
+		try {
+			
+			selectedGame.setPublisher(currentUser);
+			selectedGame.setPrice(0);
+			selectedGame.setPublishDate(new java.util.Date());
+
+			publishGamesService.publishGame(selectedGame);
+
+			getExternalContext().getFlash().setKeepMessages(true);
+			getFacesContext().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_INFO,
+							"Published!",
+							selectedGame.getName() + " published successfully"));
+			
+			getExternalContext().redirect(getExternalContext()
+					.getRequestContextPath() + "/core/manageGames/index.xhtml");
+		
+		} catch(GameAlreadyPublishedException e) {
+			getFacesContext().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR,
+							"Denied.",
+							"This game is already published"));
+
+		} catch (Exception e) {
+			getFacesContext().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR,
+							"Something went wrong",
+							"Unexpected error when trying to publish your game"));
+
+		}
+	}
+
 
 	public List<Game> getGames() {
 		return games;

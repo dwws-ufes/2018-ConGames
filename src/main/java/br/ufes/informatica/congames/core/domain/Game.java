@@ -20,7 +20,7 @@ public class Game extends PersistentObjectSupport implements Comparable<Game> {
 	@Size(max = 100)
 	private String name;
 	
-	@Size(max = 500)
+	@Size(max = 5000)
 	private String description;
 
 	@NotNull

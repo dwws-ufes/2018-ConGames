@@ -31,16 +31,14 @@
 		<h:form id="entitiesForm">
 			<p:panelGrid columns="2" columnClasses="ui-grid-col-4,ui-grid-col-8" layout="grid" styleClass="ui-panelgrid-blank">
 				<p:outputLabel for="nameField" value="#{msgsCore['manageGames.field.name']} " />
-				<p:inputText id="nameField" value="#{manageGamesController.selectedEntity.name}" style="width: 100%;">
-					<f:ajax event="blur" listener="#{manageGamesController.suggestDescription}" execute="@this" render="descriptionField" />
-				</p:inputText>
-				<p:outputLabel for="descriptionField" value="#{msgsCore['manageGames.field.description']} " />
-				<p:inputText id="descriptionField" value="#{manageGamesController.selectedEntity.description}" style="width: 100%;" />
+				<p:inputText id="nameField" value="#{manageGamesController.selectedEntity.name}" readonly="#{facesContext.renderResponse}" style="width: 100%;" />
 				<p:outputLabel for="genreField" value="#{msgsCore['manageGames.field.genre']} " />
 				<p:selectOneMenu id="genreField" value="#{manageGamesController.selectedEntity.genre}" converter="omnifaces.SelectItemsConverter" dynamic="true" style="width:100%;">
 		            <f:selectItem itemLabel="Select Genre" itemValue="" />
 		            <f:selectItems value="#{manageGamesController.genreOptions}" />
 		        </p:selectOneMenu>
+				<p:outputLabel for="descriptionField" value="#{msgsCore['manageGames.field.description']} " />
+			    <p:inputTextarea id="descriptionField" value="#{manageGamesController.selectedEntity.description}" rows="5" cols="30" maxlength="500" autoResize="false" style="width: 100%;" />
 		        <p:outputLabel for="priceField" value="#{msgsCore['manageGames.field.price']} " />
 		        <p:inputNumber step="0.01" id="priceField" decimalPlaces="0" value="#{manageGamesController.selectedEntity.price}" style="width: 100%;"/>
 				<p:outputLabel for="submissionDeadlineField" value="#{msgsCore['manageGames.field.publishDate']}" />

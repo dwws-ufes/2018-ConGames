@@ -2,12 +2,9 @@ package br.ufes.informatica.congames.core.application;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-
 import javax.annotation.security.PermitAll;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-
 import org.apache.jena.query.QueryExecution;
 import org.apache.jena.query.QueryExecutionFactory;
 import org.apache.jena.query.QuerySolution;
@@ -16,12 +13,9 @@ import org.apache.jena.rdf.model.Literal;
 
 import br.ufes.informatica.congames.core.domain.Game;
 import br.ufes.informatica.congames.core.domain.Genre;
-import br.ufes.informatica.congames.core.domain.User;
-import br.ufes.informatica.congames.core.exception.AlreadyBoughtGameException;
-import br.ufes.informatica.congames.core.exception.InsufficientFundsException;
+import br.ufes.informatica.congames.core.exception.GameAlreadyPublishedException;
 import br.ufes.informatica.congames.core.persistence.GameDAO;
 import br.ufes.informatica.congames.core.persistence.GenreDAO;
-import br.ufes.informatica.congames.core.persistence.UserDAO;
 
 @Stateless
 @PermitAll
@@ -34,9 +28,31 @@ public class PublishGamesServiceBean implements PublishGamesService {
 	@EJB
 	private GenreDAO genreDAO;
 	
+	@Override
+	public void publishGame(Game game) throws GameAlreadyPublishedException {
+		
+		if(gameDAO.retrieveByName(game.getName()) != null) {
+			throw new GameAlreadyPublishedException();
+		}
+		
+		Genre retrievedGenre = genreDAO
+				.retrieveByName(game.getGenre().getName());
+		
+		if(retrievedGenre != null) {
+			// avoids creating duplicate genres (with same name)
+			game.setGenre(retrievedGenre);
+		}
+		else {
+			genreDAO.save(game.getGenre());
+		}
+		
+		game.setDescription(game.getDescription().substring(0, Math.min(game.getDescription().length(), 450)));
+		
+		gameDAO.save(game);
+	}
 
 	@Override
-	public List<Game> SearchGamesByPublisher(String name) {
+	public List<Game> searchGamesByPublisher(String name) {
 		
 		if(name == null || name.length() <= 3)
 			return null;
@@ -58,7 +74,7 @@ public class PublishGamesServiceBean implements PublishGamesService {
 			"FILTER langMatches( lang(?game_desc), \"EN\" ) " +
 			"} " +
 			"ORDER BY ASC(?game_name) " + 
-			"LIMIT 20 ";
+			"LIMIT 100 ";
 		
 		QueryExecution queryExecution = QueryExecutionFactory.sparqlService("http://dbpedia.org/sparql", query);
 		ResultSet results = queryExecution.execSelect();
@@ -71,10 +87,15 @@ public class PublishGamesServiceBean implements PublishGamesService {
 			QuerySolution querySolution = results.next();
 			Literal nameLiteral = querySolution.getLiteral("game_name");
 			Literal descLiteral = querySolution.getLiteral("game_desc");
+			Literal genreLiteral = querySolution.getLiteral("genre_name");
+			
+			Genre newGenre = new Genre();
+			newGenre.setName(genreLiteral.getValue().toString());
 			
 			Game game = new Game();
 			game.setName(nameLiteral.getValue().toString());
 			game.setDescription(descLiteral.getValue().toString());
+			game.setGenre(newGenre);
 			
 			games.add(game);
 		}

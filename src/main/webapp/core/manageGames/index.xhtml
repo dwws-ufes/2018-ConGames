@@ -57,7 +57,7 @@
 			        
        				<f:facet name="footer">
 				        <h:panelGroup id="buttonsGroup">
-							<p:commandButton action="#{manageGamesController.create}" icon="fa fa-plus" value="#{msgs['jbutler.crud.button.create']}" />
+							<p:commandButton disabled="true" action="#{manageGamesController.create}" icon="fa fa-plus" value="#{msgs['jbutler.crud.button.create']}" />
 							<p:commandButton action="#{manageGamesController.retrieve}" icon="fa fa-search" value="#{msgs['jbutler.crud.button.retrieve']}"
 								disabled="#{manageGamesController.selectedEntity == null}" />
 							<p:commandButton action="#{manageGamesController.update}" icon="fa fa-edit" value="#{msgs['jbutler.crud.button.update']}"
