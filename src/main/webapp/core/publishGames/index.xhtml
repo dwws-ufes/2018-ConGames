@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:adm="http://github.com/adminfaces"
+	template="/WEB-INF/templates/template.xhtml">
+	
+	<style type="text/css">
+	    .ui-panelgrid .ui-grid-responsive .ui-panelgrid-cell {
+	        text-align: center;
+	    }
+	</style>
+
+	<f:metadata>
+		<f:event type="preRenderView"
+			listener="#{sessionController.checkPublisherRole}" />
+	</f:metadata>
+
+	<ui:define name="title">
+		<h:outputText value="#{msgsCore['publishGames.title']}" />
+	</ui:define>
+
+	<ui:define name="description">
+		<h:outputText value="#{msgsCore['publishGames.title.description']}" />
+	</ui:define>
+
+	<ui:define name="body">
+		<adm:breadcrumb link="/core/publishGames/index"
+			title="#{msgsCore['publishGames.title']}" />
+		<h:form id="updateProfileForm">
+
+			<h:commandButton value="Confirm" onclick="">
+				<f:ajax listener="#{publishGamesController.searchPublisherGames}"
+					render="gamesCarousel" />
+			</h:commandButton>
+
+
+			<p:carousel id="gamesCarousel"
+				value="#{publishGamesController.games}"
+				headerText="#{msgsCore['publishGames.title']}" var="game"
+				itemStyle="text-align:left" responsive="true">
+				<p:panelGrid columns="2" style="width:100%; margin:10px 0px"
+					columnClasses="label,value" layout="grid"
+					styleClass="ui-panelgrid">
+
+					<h:outputText value="Name" style="color:#333;" />
+					<h:outputText value="#{game.name}" />
+					
+					<h:outputText value="Description" style="color:#333;" />
+					<h:outputText value="#{game.description}" />
+					
+				</p:panelGrid>
+
+
+				<f:facet name="footer">
+				</f:facet>
+			</p:carousel>
+
+		</h:form>
+	</ui:define>
+
+</ui:composition>
