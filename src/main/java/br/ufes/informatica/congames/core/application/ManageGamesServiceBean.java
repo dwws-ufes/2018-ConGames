@@ -22,4 +22,8 @@ public class ManageGamesServiceBean extends CrudServiceBean<Game> implements Man
 		return gameDAO;
 	}
 	
+	public Game retrieveGameByName(String name) {
+		return gameDAO.retrieveByName(name);
+	}
+	
 }

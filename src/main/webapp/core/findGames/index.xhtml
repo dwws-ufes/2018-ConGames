@@ -63,7 +63,7 @@
 
 					<h:outputText value="Name" style="color:#333;" />
 					<h:outputText value="#{game.name}" />
-
+					
 					<h:outputText value="Genre" style="color:#333;" />
 					<h:outputText value="#{game.genre.name}" />
 
@@ -73,12 +73,16 @@
 					<h:outputText value="Price" style="color:#333;" />
 					<h:outputText value="$#{game.price}" />
 
-					<h:outputText value=" " style="color:#333;" />
 					<p:commandButton icon="fa fa-shopping-cart" value="Buy"
 						process="@form" update=":updateProfileForm:buySection">
 						<f:setPropertyActionListener value="#{game}"
 							target="#{findGamesController.selectedGame}" />
 					</p:commandButton>
+					
+					<p:commandButton icon="fa fa-globe" value="RDF"
+						onclick="location.href='#{findGamesController.testString(game.name)}'" >
+					</p:commandButton>
+					
 				</p:panelGrid>
 
 

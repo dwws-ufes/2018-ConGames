@@ -80,6 +80,8 @@ public class FindGamesController extends JSFController {
 					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error trying to buy game :(", ""));
 		}
 	}
+	
+	
 
 	public List<Game> getGames() {
 		return games;
@@ -125,4 +127,11 @@ public class FindGamesController extends JSFController {
 		return findGamesService.retrieveAllPublishers();
 	}
 
+	
+	public String testString(String name)
+	{
+		return "http://localhost:8080/congames/data/games/".concat(name.replace(' ','_'));
+	}
+	
+	
 }

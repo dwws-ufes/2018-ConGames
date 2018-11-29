@@ -6,5 +6,6 @@ import br.ufes.informatica.congames.core.domain.Game;
 
 @Local
 public interface ManageGamesService extends CrudService<Game> {
+	public Game retrieveGameByName(String name);
 
 }
