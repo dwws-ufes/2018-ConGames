@@ -47,9 +47,8 @@ public class GameInRdfServlet extends HttpServlet
 		Game referedGame = manageGamesService.retrieveGameByName(gameName.replace('_',' '));
 		if(referedGame == null)
 		{
-			resp.getWriter().println("Error: Game not found");
-			System.out.println("What?");
 
+			resp.sendRedirect(req.getContextPath() + "/data/page_not_found");
 			return;
 		}
 		
